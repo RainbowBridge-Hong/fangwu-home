@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+
+
+
+
+
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>房屋与生活 - 安居乐业，必选东濂</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root{--g:#c9a84c;--g2:#d4af37;--g3:#b8963f;--bg:#080c14;--bg2:#0d1320;--bg3:#111827;--t1:#f5f5f5;--t2:#a0a0a0;--t3:#6b7280;--rd:#ef4444;--gr:#22c55e}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--t1);min-height:100vh}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;border:none;background:none;font-family:inherit}
+img{max-width:100%;display:block}
+
+
+
+
+}
+
+
+.nav{position:fixed;top:0;left:0;right:0;height:70px;background:rgba(8,12,20,.95);backdrop-filter:blur(10px);z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:0 40px;border-bottom:1px solid rgba(201,168,76,.1)}
+.logo{display:flex;align-items:center;gap:12px}
+.logo i{font-size:28px;color:var(--g)}
+.logo span{font-size:20px;font-weight:700;background:linear-gradient(135deg,var(--g),var(--g2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nav-links{display:flex;gap:40px}
+.lk{color:var(--t2);font-size:15px;font-weight:500;transition:all .3s;position:relative;padding:5px 0}
+.lk:hover,.lk.on{color:var(--g)}
+.lk.on::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--g),transparent)}
+.nav-btns{display:flex;gap:15px;align-items:center}
+.btn{padding:10px 24px;border-radius:8px;font-size:14px;font-weight:500;transition:all .3s}
+.btn-outline{border:1px solid var(--g);color:var(--g)}
+.btn-outline:hover{background:var(--g);color:var(--bg)}
+.btn-gold{background:linear-gradient(135deg,var(--g),var(--g2));color:var(--bg)}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(201,168,76,.3)}
+.btn-sm{padding:6px 16px;font-size:13px}
+.btn-rd{background:var(--rd);color:#fff}
+
+.page{display:none;min-height:100vh;padding-top:70px}
+.page.on{display:block}
+
+.hero{position:relative;height:600px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(8,12,20,.9),rgba(13,19,32,.8)),url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%23080c14%22 width=%22100%22 height=%22100%22/><circle fill=%22%23111%22 cx=%2220%22 cy=%2220%22 r=%221%22/><circle fill=%22%23111%22 cx=%2280%22 cy=%2280%22 r=%221%22/><circle fill=%22%23111%22 cx=%2250%22 cy=%2250%22 r=%221%22/></svg>');background-size:cover}
+.hero-content{position:relative;z-index:2;text-align:center;max-width:800px;padding:0 20px}
+.hero h1{font-size:48px;font-weight:700;margin-bottom:20px;background:linear-gradient(135deg,var(--t1),var(--g));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{font-size:18px;color:var(--t2);margin-bottom:40px;line-height:1.8}
+.hero-btns{display:flex;gap:20px;justify-content:center}
+
+.stats{display:flex;justify-content:center;gap:80px;padding:60px 40px;background:var(--bg2);border-top:1px solid rgba(201,168,76,.1);border-bottom:1px solid rgba(201,168,76,.1)}
+.stat{text-align:center}
+.stat-num{font-size:42px;font-weight:700;color:var(--g);margin-bottom:8px}
+.stat-label{color:var(--t3);font-size:14px}
+
+.sec{padding:80px 40px;max-width:1400px;margin:0 auto}
+.sec-title{text-align:center;margin-bottom:60px}
+.sec-title h2{font-size:36px;font-weight:700;margin-bottom:15px}
+.sec-title h2 span{color:var(--g)}
+.sec-title p{color:var(--t3);font-size:16px}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:25px}
+.crd{background:var(--bg2);border:1px solid rgba(201,168,76,.1);border-radius:12px;overflow:hidden;transition:all .3s;cursor:pointer}
+.crd:hover{transform:translateY(-5px);border-color:var(--g3);box-shadow:0 20px 40px rgba(0,0,0,.3)}
+.ci{height:180px;background:linear-gradient(135deg,var(--bg3),var(--bg));display:flex;align-items:center;justify-content:center;font-size:64px;color:var(--g)}
+.cb{padding:20px}
+.ctag{display:inline-block;padding:4px 12px;background:rgba(201,168,76,.1);color:var(--g);font-size:12px;border-radius:20px;margin-bottom:10px}
+.ct{font-size:18px;font-weight:600;margin-bottom:10px}
+.cm{display:flex;gap:15px;color:var(--t3);font-size:13px;margin-bottom:15px;flex-wrap:wrap}
+.cp{font-size:24px;font-weight:700;color:var(--g)}
+.cp small{font-size:14px;color:var(--t3);margin-left:4px}
+.cf{padding:15px 20px;border-top:1px solid rgba(201,168,76,.1);display:flex;justify-content:space-between;color:var(--t3);font-size:12px}
+
+.ft-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:30px}
+.ft{background:var(--bg2);border:1px solid rgba(201,168,76,.1);border-radius:12px;padding:30px;text-align:center;transition:all .3s}
+.ft:hover{border-color:var(--g3);transform:translateY(-5px)}
+.fi{font-size:48px;margin-bottom:20px;color:var(--g)}
+.ft .ct{margin-bottom:10px}
+.ft .desc{color:var(--t3);font-size:14px;line-height:1.6}
+
+.ni{display:flex;gap:15px;padding:20px;background:var(--bg2);border:1px solid rgba(201,168,76,.1);border-radius:12px;margin-bottom:15px;transition:all .3s}
+.ni:hover{border-color:var(--g3)}
+.nim{width:50px;height:50px;background:var(--bg3);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:24px;color:var(--g);flex-shrink:0}
+.nc{flex:1}
+.nt{font-size:16px;font-weight:600;margin-bottom:8px;line-height:1.4}
+.nm{display:flex;gap:15px;color:var(--t3);font-size:12px;flex-wrap:wrap}
+.nm .tag{padding:2px 8px;background:rgba(201,168,76,.1);color:var(--g);border-radius:4px}
+
+.db{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:30px}
+.db2{padding:8px 20px;background:var(--bg2);border:1px solid rgba(201,168,76,.1);border-radius:20px;color:var(--t2);font-size:14px;cursor:pointer;transition:all .3s}
+.db2:hover,.db2.on{background:var(--g);color:var(--bg);border-color:var(--g)}
+
+.tabs{display:flex;gap:30px;justify-content:center;margin-bottom:40px;border-bottom:1px solid rgba(201,168,76,.1);padding-bottom:15px}
+.tab{color:var(--t3);font-size:16px;cursor:pointer;transition:all .3s;padding:5px 0;position:relative}
+.tab:hover,.tab.on{color:var(--g)}
+.tab.on::after{content:'';position:absolute;bottom:-16px;left:0;right:0;height:2px;background:var(--g)}
+
+.pi{display:flex;gap:15px;padding:20px;background:var(--bg2);border:1px solid rgba(201,168,76,.1);border-radius:12px;margin-bottom:15px}
+.pic{width:50px;height:50px;background:var(--bg3);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:24px;color:var(--g);flex-shrink:0}
+.pc{flex:1}
+.pct{font-size:16px;font-weight:600;margin-bottom:8px}
+.pcd{color:var(--t2);font-size:14px;line-height:1.6;margin-bottom:10px}
+.pd{color:var(--t3);font-size:12px}
+
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:2000;display:none;align-items:center;justify-content:center;padding:20px}
+.modal.on{display:flex}
+.mc{background:var(--bg2);border:1px solid rgba(201,168,76,.2);border-radius:16px;width:100%;max-width:450px;padding:30px;position:relative;max-height:90vh;overflow-y:auto}
+.mh{font-size:24px;font-weight:700;margin-bottom:25px;display:flex;align-items:center;gap:10px}
+.mh i{color:var(--g)}
+.fg{margin-bottom:20px}
+.fg label{display:block;color:var(--t2);font-size:14px;margin-bottom:8px}
+.fg input,.fg select,.fg textarea{width:100%;padding:12px 15px;background:var(--bg3);border:1px solid rgba(201,168,76,.2);border-radius:8px;color:var(--t1);font-size:14px;transition:all .3s}
+.fg input:focus,.fg select:focus,.fg textarea:focus{outline:none;border-color:var(--g)}
+.fg textarea{min-height:100px;resize:vertical}
+.mc .btn{width:100%;margin-top:10px}
+.mx{position:absolute;top:15px;right:15px;width:36px;height:36px;background:var(--bg3);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s}
+.mx:hover{background:var(--rd)}
+
+.stb{position:fixed;bottom:30px;right:30px;width:50px;height:50px;background:var(--g);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;visibility:hidden;transition:all .3s;z-index:999}
+.stb.on{opacity:1;visibility:visible}
+.stb:hover{transform:translateY(-5px)}
+
+.tc{position:fixed;top:100px;right:20px;z-index:3000;display:flex;flex-direction:column;gap:10px}
+.tost{background:var(--bg2);border:1px solid rgba(201,168,76,.2);border-radius:8px;padding:15px 20px;display:flex;align-items:center;gap:12px;box-shadow:0 10px 30px rgba(0,0,0,.3);animation:slideIn .3s ease}
+}
+.tost .ic{font-size:20px}
+.tost.ok .ic{color:var(--gr)}
+.tost.er .ic{color:var(--rd)}
+.tost.wr .ic{color:#f59e0b}
+
+.admin-grid{display:grid;grid-template-columns:250px 1fr;min-height:calc(100vh - 70px)}
+.admin-sidebar{background:var(--bg2);border-right:1px solid rgba(201,168,76,.1);padding:30px 20px}
+.admin-logo{display:flex;align-items:center;gap:12px;margin-bottom:40px;padding-bottom:20px;border-bottom:1px solid rgba(201,168,76,.1)}
+.admin-logo i{font-size:24px;color:var(--g)}
+.admin-logo span{font-size:18px;font-weight:600}
+.mi{display:flex;align-items:center;gap:12px;padding:12px 15px;color:var(--t2);border-radius:8px;cursor:pointer;transition:all .3s;margin-bottom:5px}
+.mi:hover,.mi.on{background:rgba(201,168,76,.1);color:var(--g)}
+.mi i{width:20px}
+.admin-main{padding:30px;overflow:auto}
+.admin-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:30px}
+.admin-header h1{font-size:24px;font-weight:600}
+.stat-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin-bottom:30px}
+.stat-card{background:var(--bg2);border:1px solid rgba(201,168,76,.1);border-radius:12px;padding:20px}
+.stat-card h3{color:var(--t3);font-size:14px;font-weight:500;margin-bottom:10px}
+.stat-card .num{font-size:32px;font-weight:700;color:var(--g)}
+.table-container{background:var(--bg2);border:1px solid rgba(201,168,76,.1);border-radius:12px;overflow:hidden}
+.table{width:100%;border-collapse:collapse}
+.table th,.table td{padding:15px;text-align:left;border-bottom:1px solid rgba(201,168,76,.1)}
+.table th{background:var(--bg3);color:var(--g);font-weight:500;font-size:14px}
+.table td{color:var(--t2);font-size:14px}
+.table tr:hover td{background:rgba(201,168,76,.05)}
+.bdg{display:inline-block;padding:4px 10px;border-radius:20px;font-size:12px}
+.bdg.gr{background:rgba(34,197,94,.1);color:var(--gr)}
+.bdg.rd{background:rgba(239,68,68,.1);color:var(--rd)}
+.bdg.ye{background:rgba(245,158,11,.1);color:#f59e0b}
+
+@media(max-width:768px){
+.nav{padding:0 20px}
+.nav-links{display:none}
+.hero h1{font-size:32px}
+.stats{gap:30px;flex-wrap:wrap;padding:40px 20px}
+.sec{padding:60px 20px}
+.grid{grid-template-columns:1fr}
+.admin-grid{grid-template-columns:1fr}
+.admin-sidebar{display:none}
+}
+
+/* Detail Modal Styles */
+.md-detail{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.9);display:none;align-items:center;justify-content:center;z-index:3000;padding:20px;overflow-y:auto}.md-detail.on{display:flex}
+.mdc-detail{background:var(--bg3);border-radius:20px;width:100%;max-width:800px;padding:30px;border:1px solid rgba(201,168,76,.3);position:relative;max-height:90vh;overflow-y:auto}
+.mdc-detail .mcx{position:absolute;top:20px;right:25px;font-size:2rem;color:var(--t2);cursor:pointer;z-index:10}
+.mdc-detail .mcx:hover{color:var(--g)}
+.detail-header{text-align:center;margin-bottom:25px;padding-bottom:20px;border-bottom:1px solid rgba(201,168,76,.2)}
+.detail-header h2{color:var(--g);font-size:1.8rem;font-weight:700}
+.detail-img{width:100%;margin-bottom:25px;border-radius:12px;overflow:hidden}
+.detail-img img{width:100%;height:auto;display:block}
+.detail-info{background:var(--bg2);padding:20px;border-radius:12px;margin-bottom:25px}
+.di-row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid rgba(201,168,76,.1)}
+.di-row:last-child{border-bottom:none}
+.di-label{color:var(--t2);font-weight:600}
+.di-value{color:var(--t);text-align:right}
+.detail-desc{background:var(--bg2);padding:20px;border-radius:12px;margin-bottom:25px}
+.detail-desc h3{color:var(--g);margin-bottom:15px;font-size:1.1rem}
+.detail-desc p{color:var(--t2);line-height:1.8;font-size:.95rem}
+.detail-contact{background:linear-gradient(135deg,rgba(201,168,76,.2) 0%,rgba(201,168,76,.05) 100%);padding:20px;border-radius:12px;text-align:center;border:1px solid rgba(201,168,76,.3)}
+.detail-contact h3{color:var(--g);margin-bottom:10px}
+.detail-contact p{color:var(--t);font-size:1.2rem;font-weight:600}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="logo"><i class="fas fa-building"></i><span>房屋与生活</span></div>
+  <div class="nav-links">
+    <a class="lk on" onclick="gp('home')">首页</a>
+    <a class="lk" onclick="gp('fangchan')">房产</a>
+    <a class="lk" onclick="gp('diandongche')">汽车</a>
+    <a class="lk" onclick="gp('xueche')">网约车</a>
+    <a class="lk" onclick="gp('news')">资讯</a>
+  </div>
+  <div class="nav-btns">
+    <button class="btn btn-outline" id="navLoginBtn" onclick="sm('loginModal')">登录</button>
+    <button class="btn btn-gold" onclick="sm('registerModal')">注册</button>
+  </div>
+</nav>
+
+<div class="page on" id="pg-home">
+  <section class="hero">
+    <div class="hero-content">
+      <h1>安居乐业，必选东濂</h1>
+      <p>东濂置业有限公司致力于为海口市民提供优质的房产、汽车及生活服务。<br>专业团队，诚信经营，让您的生活更美好。</p>
+      <div class="hero-btns">
+        <button class="btn btn-gold" onclick="gp('fangchan')"><i class="fas fa-home"></i> 浏览房产</button>
+        <button class="btn btn-outline" onclick="gp('diandongche')"><i class="fas fa-car"></i> 查看汽车</button>
+      </div>
+    </div>
+  </section>
+  
+  <section class="stats">
+    <div class="stat"><div class="stat-num">35+</div><div class="stat-label">在售楼盘</div></div>
+    <div class="stat"><div class="stat-num">35+</div><div class="stat-label">二手房源</div></div>
+    <div class="stat"><div class="stat-num">35+</div><div class="stat-label">汽车车型</div></div>
+    <div class="stat"><div class="stat-num">35+</div><div class="stat-label">政策资讯</div></div>
+  </section>
+  
+  <section class="sec">
+    <div class="sec-title"><h2>最新<span>资讯</span></h2><p>房产政策、市场动态、行业新闻</p></div>
+    <div id="homeNewsList"></div>
+  </section>
+</div>
+
+<div class="page" id="pg-fangchan">
+  <section class="sec">
+    <div class="sec-title"><h2>海口<span>房产</span></h2><p>优质楼盘、二手房源、房产政策一站式查询</p></div>
+    
+    <div class="db" id="fangchanDistricts">
+      <button class="db2 on" onclick="switchDistrict('fangchan','all',this)">全部区域</button>
+      <button class="db2" onclick="switchDistrict('fangchan','龙华区',this)">龙华区</button>
+      <button class="db2" onclick="switchDistrict('fangchan','秀英区',this)">秀英区</button>
+      <button class="db2" onclick="switchDistrict('fangchan','美兰区',this)">美兰区</button>
+      <button class="db2" onclick="switchDistrict('fangchan','琼山区',this)">琼山区</button>
+    </div>
+    
+    <div class="tabs" id="fangchanTabs">
+      <div class="tab on" onclick="switchFangchanTab('loupan',this)">楼盘信息</div>
+      <div class="tab" onclick="switchFangchanTab('ershou',this)">二手房</div>
+      <div class="tab" onclick="switchFangchanTab('policy',this)">楼市政策</div>
+      <div class="tab" onclick="switchFangchanTab('gossip',this)">小道消息</div>
+    </div>
+    
+    <div class="grid" id="fangchanGrid"></div>
+    <div class="grid" id="ershouGrid" style="display:none"></div>
+    <div class="flex" id="policyList" style="display:none;flex-direction:column"></div>
+    <div class="flex" id="gossipList" style="display:none;flex-direction:column"></div>
+  </section>
+</div>
+
+<div class="page" id="pg-diandongche">
+  <section class="sec">
+    <div class="sec-title"><h2>汽车<span>服务</span></h2><p>新能源汽车、电动车、购车咨询</p></div>
+    
+    <div class="db" id="carDistricts">
+      <button class="db2 on" onclick="switchDistrict('car','all',this)">全部区域</button>
+      <button class="db2" onclick="switchDistrict('car','龙华区',this)">龙华区</button>
+      <button class="db2" onclick="switchDistrict('car','秀英区',this)">秀英区</button>
+      <button class="db2" onclick="switchDistrict('car','美兰区',this)">美兰区</button>
+      <button class="db2" onclick="switchDistrict('car','琼山区',this)">琼山区</button>
+    </div>
+    
+    <div class="grid" id="carGrid"></div>
+  </section>
+</div>
+
+<div class="page" id="pg-xueche">
+  <section class="sec">
+    <div class="sec-title"><h2>网约车<span>服务</span></h2><p>平台政策、从业培训、购车租车一站式服务</p></div>
+    <div class="ft-grid" id="xuecheGrid"></div>
+    <div style="margin-top:40px"><h3 style="margin-bottom:20px"><i class="fas fa-newspaper" style="color:var(--g)"></i> 最新资讯</h3><div id="xuecheList"></div></div>
+  </section>
+</div>
+
+<div class="page" id="pg-news">
+  <section class="sec">
+    <div class="sec-title"><h2>资讯<span>中心</span></h2><p>房产、汽车、网约车行业动态</p></div>
+    <div class="tabs" id="newsTabs">
+      <div class="tab on" onclick="switchNewsTab('all',this)">全部资讯</div>
+      <div class="tab" onclick="switchNewsTab('fangchan',this)">房产资讯</div>
+      <div class="tab" onclick="switchNewsTab('car',this)">汽车资讯</div>
+      <div class="tab" onclick="switchNewsTab('xueche',this)">网约车资讯</div>
+    </div>
+    <div id="allNewsList"></div>
+  </section>
+</div>
+
+<div class="page" id="pg-admin-login">
+  <section class="sec" style="max-width:400px;padding-top:150px">
+    <div class="mc" style="display:block">
+      <div class="mh"><i class="fas fa-lock"></i> 管理员登录</div>
+      <div class="fg"><label>账号</label><input type="text" id="adminUser" value="admin"></div>
+      <div class="fg"><label>密码</label><input type="password" id="adminPwd" value="admin123"></div>
+      <button class="btn btn-gold" onclick="adminLogin()">登录</button>
+      <button class="btn btn-outline" onclick="gp('home')" style="margin-top:10px">返回首页</button>
+    </div>
+  </section>
+</div>
+
+<div class="page" id="pg-admin">
+  <div class="admin-grid">
+    <div class="admin-sidebar">
+      <div class="admin-logo"><i class="fas fa-crown"></i><span>管理后台</span></div>
+      <div class="mi on" onclick="adminTab('dashboard')"><i class="fas fa-chart-line"></i> 数据概览</div>
+      <div class="mi" onclick="adminTab('users')"><i class="fas fa-users"></i> 用户管理</div>
+      <div class="mi" onclick="adminTab('fangchan')"><i class="fas fa-home"></i> 房产管理</div>
+      <div class="mi" onclick="adminTab('car')"><i class="fas fa-car"></i> 汽车管理</div>
+      <div class="mi" onclick="adminTab('news')"><i class="fas fa-newspaper"></i> 资讯管理</div>
+      <div class="mi" onclick="adminTab('settings')"><i class="fas fa-cog"></i> 系统设置</div>
+      <div class="mi" onclick="adminLogout()" style="margin-top:auto;color:var(--rd)"><i class="fas fa-sign-out-alt"></i> 退出登录</div>
+    </div>
+    <div class="admin-main">
+      <div class="admin-header"><h1>数据概览</h1><button class="btn btn-gold" onclick="adminLogout()">退出</button></div>
+      <div class="stat-cards">
+        <div class="stat-card"><h3>注册用户</h3><div class="num" id="statUsers">0</div></div>
+        <div class="stat-card"><h3>房产信息</h3><div class="num" id="statFangchan">0</div></div>
+        <div class="stat-card"><h3>汽车信息</h3><div class="num" id="statCar">0</div></div>
+        <div class="stat-card"><h3>网约车资讯</h3><div class="num" id="statXueche">0</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="loginModal"><div class="mc"><div class="mx" onclick="cm('loginModal')"><i class="fas fa-times"></i></div><div class="mh"><i class="fas fa-user"></i> 用户登录</div><div class="fg"><label>用户名/手机号</label><input type="text" id="loginUsername" placeholder="请输入用户名或手机号"></div><div class="fg"><label>密码</label><input type="password" id="loginPwd" placeholder="请输入密码"></div><button class="btn btn-gold" onclick="doLogin()">登录</button><div style="text-align:center;margin-top:15px;color:var(--t3);font-size:13px">还没有账号？<a href="#" onclick="cm('loginModal');sm('registerModal')" style="color:var(--g)">立即注册</a></div></div></div>
+
+<div class="modal" id="registerModal"><div class="mc"><div class="mx" onclick="cm('registerModal')"><i class="fas fa-times"></i></div><div class="mh"><i class="fas fa-user-plus"></i> 用户注册</div><div class="fg"><label>用户名</label><input type="text" id="regUsername" placeholder="请输入用户名"></div><div class="fg"><label>手机号</label><input type="tel" id="regPhone" placeholder="请输入手机号"></div><div class="fg"><label>密码</label><input type="password" id="regPwd" placeholder="请输入密码（至少6位）"></div><button class="btn btn-gold" onclick="doRegister()">注册</button><div style="text-align:center;margin-top:15px;color:var(--t3);font-size:13px">已有账号？<a href="#" onclick="cm('registerModal');sm('loginModal')" style="color:var(--g)">立即登录</a></div></div></div>
+
+<div class="stb" id="stb" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i></div>
+<div class="tc" id="tc"></div>
+
+
+
+
+<!-- Detail Modal -->
+<div class="md md-detail" id="detailModal">
+  <div class="mc mdc-detail">
+    <span class="mcx" onclick="closeDetail()">&times;</span>
+    <div id="detailContent"></div>
+  </div>
+</div>
+</body>
+</html>
